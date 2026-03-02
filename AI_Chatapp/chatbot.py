@@ -1,4 +1,5 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.messages import AIMessage,HumanMessage,SystemMessage
 from dotenv import load_dotenv
 import os
 
@@ -10,10 +11,10 @@ model = ChatGoogleGenerativeAI(
      api_key=os.getenv("GOOGLE_API_KEY"),
     temperature=0.2
 )
-context=[]
+context=[SystemMessage(content='you are a helfull agent named sura')]
 while True:
     user_input=input('you: ')
-    context.append(user_input)
+    context.append(HumanMessage(content=user_input))
     if user_input=='exit':
         print(str(context))
         break;
@@ -21,5 +22,5 @@ while True:
         result=model.invoke(context) 
         result=result
         response = result.content
-        context.append(response)
+        context.append(AIMessage(content=response))
         print("AI:", response)
