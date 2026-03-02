@@ -1,0 +1,5 @@
+.env
+/ChatModels
+/EmbeddingModels
+/LLMs
+/venv
